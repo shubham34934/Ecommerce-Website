@@ -1,0 +1,40 @@
+.q-form-param {
+    width: 1000px;
+ }
+
+.q-form .q-movie-image {
+background-color: #EED3D7;
+background-image: url("../img/upload_image_placeholder.png");
+background-size: cover;
+}
+
+
+.information-div {
+display:none;
+}
+
+.todo {
+display:none;
+}
+
+.skeletonElement {
+visibility: hidden;
+}
+
+
+.q-form-param .q-taginput {
+background-color: #EED3D7;
+ width: 1000px;
+}
+
+.bootstrap-tagsinput {
+    width: 100%;
+}
+
+.bootstrap-tagsinput input {
+ width: 99%;
+}
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}

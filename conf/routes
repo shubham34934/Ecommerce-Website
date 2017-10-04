@@ -1,0 +1,51 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET   /                             controllers.shop.user.Shopping.index()
+GET   /products                     controllers.shop.user.Shopping.products(category: String, islist: Boolean ?=false)
+GET   /product                      controllers.shop.user.Shopping.product(sku: String)
+GET   /search                       controllers.shop.user.Shopping.search(key: String ?="")
+GET   /blog                         controllers.shop.user.Shopping.blog()
+
+### buying
+GET   /cart                         controllers.shop.user.ProductBuy.cart()
+GET   /checkout                     controllers.shop.user.ProductBuy.checkout()
+
+### Admin page for now
+GET   /admin                        controllers.shop.admin.ShopAdmin.index()
+GET   /admin/product/add            controllers.shop.admin.ShopAdmin.addProduct()
+POST  /admin/product/add            controllers.shop.admin.ShopAdmin.doAddProduct()
+GET   /admin/category/add           controllers.shop.admin.ShopAdmin.addCategory()
+POST  /admin/category/add           controllers.shop.admin.ShopAdmin.doAddCategory()
+
+
+
+###################################  REST API  ####################################
+POST  /api/cart/add                 controllers.shop.user.ShopApi.addToCart()
+GET   /api/carts/deleteall          controllers.shop.user.ShopApi.removeCompleteCart()
+GET   /api/carts/count              controllers.shop.user.ShopApi.getCartCount()
+GET   /api/carts                    controllers.shop.user.ShopApi.getCartDetail()
+
+GET   /api/category/tree            controllers.shop.user.ShopApi.categoryTree()
+GET   /api/category/leaf            controllers.shop.user.ShopApi.categoryLeaf()
+GET   /api/products                 controllers.shop.user.ShopApi.products(category: String)
+GET   /api/products/featured        controllers.shop.user.ShopApi.featuredItem()
+GET   /api/product                  controllers.shop.user.ShopApi.productDetail(sku : String)
+
+GET   /api/search                   controllers.shop.user.ShopApi.search(key : String)
+POST  /api/checkout                 controllers.shop.user.ShopApi.checkoutCart()
+####################################################################################
+
+#GET   /api/addtocart               controllers.shop.user.ProductBuy.addToCart(sku : String)
+#GET   /api/addtowishlist           controllers.shop.user.ProductBuy.addToWishList(sku : String)
+
+
+#javascript route
+GET    /assets/javascripts/routes   controllers.JsRoute.javascriptRoutes()
+
+# Map static resources from the /public folder to the /assets URL path
+GET    /assets/*file                controllers.Assets.at(path="/public", file)
+#GET   /assets/*file                controllers.Assets.versioned(path="/public", file: Asset)
+GET    /externalAssets/*file        controllers.ExternalAssets.at(path="/tmp", file)

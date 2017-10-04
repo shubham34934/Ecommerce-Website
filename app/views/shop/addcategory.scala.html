@@ -1,0 +1,50 @@
+@(f: Form[_])
+
+@import helper._
+
+<link href='@routes.Assets.at("stylesheets/bootstrap-tagsinput.css")' rel="stylesheet">
+<link rel="stylesheet" href="@routes.Assets.at("stylesheets/jasny-bootstrap.css")">
+
+@main(Messages("Category"),"login") {
+
+  <div class="row">
+    <div class="span6">
+      <h1>Add Category!</h1>
+    </div>
+  </div>
+
+
+    	@form(action = controllers.shop.admin.routes.ShopAdmin.doAddCategory(), 'enctype -> "multipart/form-data") {
+
+
+
+<div class="q-form q-form-param">
+    @inputText(f("name"),
+    '_label -> "Name",
+    'placeholder -> "name of item")
+</div>
+
+<div class="q-form q-form-param">
+    @inputText(f("slug"),
+    '_label -> "Slug",
+    'placeholder -> "name of item")
+</div>
+
+<div class="q-form q-form-param">
+    @inputText(f("path"),
+    '_label -> "Path",
+    'placeholder -> "name of item")
+</div>
+
+          <input type="submit" value="Add" class="btn btn-primary"><br/>
+          <br/>
+
+    	}
+
+
+
+}
+
+<script src='@routes.Assets.at("javascripts/bootstrap-tagsinput.js")'></script>
+<script src='@routes.Assets.at("javascripts/bootstrap-tagsinput-angular.js")'></script>
+<script src='@routes.Assets.at("javascripts/jasny-bootstrap.js")'></script>

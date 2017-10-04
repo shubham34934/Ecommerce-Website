@@ -1,0 +1,19 @@
+@(f: Form[_])
+
+@import helper._
+
+
+<!-- TODO fix it so that if support all browser , safri, and firefox-->
+
+<!--<input type="hidden" name="userId" value={{userIdFromCookie}} ng-model="formData.userId">-->
+
+<!--<input type="hidden" name="sku" value="{{product.sku}}" ng-model="formData.sku">-->
+
+Start Date:
+<input type="date" ng-model="formData.startDate"  max="2020-12-31" min="{{currentDate | date:'yyyy-MM-dd'}}"><br>
+End Date:
+<input type="date" ng-model="formData.endDate"  max="2020-12-31" min="{{currentDate | date:'yyyy-MM-dd'}}"><br>
+Quantity:
+<input type="number" ng-model="formData.qty" min="1" max="5">
+<!--{{Math.min(5,product.qty)}}-->
+

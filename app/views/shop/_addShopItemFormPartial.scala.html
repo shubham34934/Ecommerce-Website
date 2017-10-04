@@ -1,0 +1,101 @@
+@(f: Form[_], constraints: Boolean = false)
+
+@import helper._
+
+
+<div class="q-form q-form-param">
+
+<label for="mycategory"> Category: </label>
+<select name="mycategory" id="mycategory" ng-model="catSelected"
+        ng-options="option.name for option in categoriesleaf track by option.slug" >
+    <!--<option ng-repeat="option in categoriesleaf" value="{{option.slug}}">{{option.name}}</option>-->
+    <!--<option value="misc" selected="selected"> Misc </option>-->
+</select>
+
+</div>
+</br>
+</br>
+
+<div class="q-form q-form-param">
+    @inputText(f("title"),
+    '_label -> "Title",
+    'placeholder -> "name of item")
+</div>
+
+
+<div class="q-form q-form-param">
+    @textarea(f("detail.description"),
+    'rows -> 5,
+    'cols -> 100,
+    '_label -> "Description",
+    'placeholder -> "name of item")
+</div>
+
+<div class="q-form q-form-param">
+    @textarea(f("detail.features"),
+    'rows -> 5,
+    'cols -> 100,
+    '_label -> "Features",
+    'placeholder -> "name of item")
+</div>
+
+<div class="q-form q-form-param">
+    @textarea(f("detail.requirements"),
+    'rows -> 5,
+    'cols -> 100,
+    '_label -> "Requirements",
+    'placeholder -> "name of item")
+</div>
+
+<div class="q-form q-form-param">
+    @inputText(f("price.mrp"),
+    '_label -> "Price",
+    '_value -> "10",
+    'placeholder -> "name of item")
+</div>
+
+<div class="q-form q-form-param">
+    @inputText(f("qty"),
+    '_label -> "Quantity",
+    '_value -> 5,
+    'placeholder -> "name of item")
+</div>
+
+
+
+<table class="table">
+    <tr>
+
+    @for(a <- 1 to 4) {
+
+        <td>
+<div class="q-form">
+
+    <div class="fileinput fileinput-new" data-provides="fileinput">
+        <div class="fileinput-preview thumbnail q-movie-image" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
+        <div>
+            <span class="btn btn-default btn-file" style="display:none">
+
+                <!--<span class="fileinput-new">Select image</span>-->
+                <!-- <span class="fileinput-exists">Change</span>-->
+                <input type="file" name="image" >
+            </span>
+            <!--<a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>-->
+        </div>
+    </div>
+
+</div>
+        </td>
+
+        }
+
+   </tr>
+</table>
+
+
+<div class="q-form q-form-param">
+    @inputText(f("detail.tags"),
+    '_label -> "Tags",
+    Symbol("data-role") -> "tagsinput")
+</div>
+

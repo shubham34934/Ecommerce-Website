@@ -1,0 +1,218 @@
+@(data: String)
+
+@import helper._
+@import services.ResourceUtil._
+
+@main(Messages("Zoop"),"login") {
+
+
+<script>
+         function featuredShopItemCtrl($scope,$http) {
+            var url = "/api/products/featured";
+            $http.get(url).success( function(response) {
+               $scope.featuredShopitems = response;
+            });
+         }
+</script>
+
+<div ng-controller = "featuredShopItemCtrl">
+
+                <div class="wrapper">
+                    <div class="container">
+                        <div class="row ">
+
+
+                            <!--TODO TEMP MANJEET padding the slider to center . TILL sale and offer is implemented -->
+                            <div class="span2"> </div>
+                            <!--<div class="span9 slider">-->
+                            <!-- SLIDER -->
+                            <div class="span8 slider">
+                                <div class="slider-slides">
+                                    <div class="slides">
+                                        <a href="#">
+                                                 <img ng-src='@routes.Assets.at("images/sofa.jpg")' alt="">
+                                        </a>
+                                        <div class="overlay .overlay-nobackground">
+                                            <h1>AWESOME FURNITUR</h1>
+                                            <p>Make yourself <span>Comfortable</span> <br/> atleast at your home. </p>
+                                        </div>
+                                    </div>
+                                    <div class="slides">
+                                        <a href="#"><img ng-src='@routes.Assets.at("images/travelbag.jpg")' alt=""></a>
+                                        <div class="overlay overlay-right">
+                                            <h1>TRAVEL BAG</h1>
+                                            <p>Going Wild <br/> made easy</p>
+                                        </div>
+                                    </div>
+									<div class="slides">
+                                        <a href="#"><img ng-src='@routes.Assets.at("images/bike.jpg")' alt=""></a>
+                                        <div class="overlay">
+                                            <h1>SUPER BIKES</h1>
+                                            <p>Don't Wait for <span>Tomorrow</span> <br/> just <span>Borrow</span></p>
+                                            <p> </p>
+                                        </div>
+                                    </div>
+                                    <div class="slides">
+                                        <a href="#"><img ng-src='@routes.Assets.at("images/camera.jpg")' alt=""></a>
+                                        <div class="overlay overlay-left">
+                                            <h1>DSLR CAMERA</h1>
+                                            <p>Become <span>Photographer</span> <br/> for a day </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="#" class="next"></a>
+                                <a href="#" class="prev"></a>
+                                <div class="slider-btn"></div>
+                            </div>
+                            <!-- SLIDER -->
+
+                            <!-- SPECIAL-OFFER -->
+                            <div class="span3 todo">
+                                <div class="offers">
+                                    <figure>
+                                        <a href="#"><img src="http://placehold.it/270x171" alt=""></a>
+                                        <div class="overlay">
+                                            <h1>SUMMER<span> COLLECTION 35% OFF</span> <small>  - Limited Offer</small></h1>
+                                        </div>
+                                    </figure>
+                                </div>
+
+                                <div class="offers">
+                                    <figure>
+                                        <a href="#"><img src="http://placehold.it/270x171" alt=""></a>
+                                        <div class="overlay">
+                                            <h1>SUMMER<span> COLLECTION 35% OFF</span> <small>  - Limited Offer</small></h1>
+                                        </div>
+                                    </figure>
+                                </div>
+                            </div>
+                            <!-- SPECIAL-OFFER -->
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PRODUCT-OFFER -- FEATURED PRODUCT-->
+                <div class="product_wrap">
+                    <div class="container">
+                        <div class="row heading-wrap">
+                            <div class="span12 heading">
+                                <h2>Featured Products <span></span></h2>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+
+                            <div ng-repeat = "fsitem in featuredShopitems">
+
+                                <div class="span3 product">
+                                    <div>
+                                        <figure>
+                                            <!--<a href="#"><img src="externalAssets/{{ fsitem.image }}" alt=""></a>-->
+                                            <a href="/product?sku={{fsitem.sku}}">
+                                                <img class="test" ng-src=@ResourceUrl()/t_256_{{fsitem.image}} alt="">
+                                            </a>
+                                            <div class="overlay">
+                                                <a href=@ResourceUrl()/{{fsitem.image}}  class="zoom prettyPhoto"></a>
+                                                <!--<a href='@controllers.shop.user.routes.Shopping.product("{{fsitem.sku}}")' class="link"></a>-->
+                                            </div>
+                                        </figure>
+                                        <div class="detail">
+                                            <span>$ <dummy ng-bind="fsitem.price.mrp"></dummy></span>
+                                            <h4 ng-bind="fsitem.title"></h4>
+                                            <div class="icon">
+                                                <a href="/product?sku={{fsitem.sku}}" class="one tooltip" title="Add to cart"></a>
+                                                <a href="#" class="two tooltip " title="Add to wish list"></a>
+                                                <!--<a href="#" class="three tooltip" title="Add to compare"></a>-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div> <!-- featured shop item loop ends -->
+
+
+                        </div>
+                    </div>
+                </div>
+                <!-- PRODUCT-OFFER -->
+
+                <!-- CLIENTS -->
+                <div class="clients-wrap todo" >
+                    <div class="container">
+                        <div class="row heading-wrap">
+                            <div class="span12 heading">
+                                <h2>Our Brands <span></span></h2>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="span12 clients">
+                                <ul class="elastislide-list clearfix" id="carousel" ng-repeat = "fsitem in featuredShopitems">
+
+                                        <li><a href="/product?sku={{fsitem.sku}}">
+                                            <img ng-src=@ResourceUrl()/{{fsitem.image}} alt=""></a></li>
+                                    <!-- featured shop item loop ends -->
+
+                                    <li><a href="#"><img src="http://placehold.it/141x28" alt=""></a></li>
+
+
+                                    <li><a href="#"><img src="http://placehold.it/141x28" alt=""></a></li>
+
+                                    <li><a href="#"><img src="http://placehold.it/141x28" alt=""></a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <!-- CLIENTS -->
+
+                <!-- CATEGORIES -->
+                <div class="categories-wrap todo">
+                    <div class="container">
+                        <div class="row">
+
+                            <div class="span4">
+                                <div class="categories">
+                                    <figure>
+                                        <img src="http://placehold.it/370x133" alt="">
+                                        <div class="cate-overlay">
+                                            <a href="#">Single Seat</a>
+                                        </div>
+                                    </figure>
+                                </div>
+                            </div>
+
+                            <div class="span4">
+                                <div class="categories">
+                                    <figure>
+                                        <img src="http://placehold.it/370x133png" alt="">
+                                        <div class="cate-overlay">
+                                            <a href="#">Surfaces</a>
+                                        </div>
+                                    </figure>
+                                </div>
+                            </div>
+
+                            <div class="span4">
+                                <div class="categories">
+                                    <figure>
+                                        <img src="http://placehold.it/370x133" alt="">
+                                        <div class="cate-overlay">
+                                            <a href="#">Storage</a>
+                                        </div>
+                                    </figure>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- CATEGORIES -->
+
+</div>
+
+}

@@ -1,0 +1,152 @@
+@(cartDetail: String ="" )
+
+@import helper._
+@import services.ResourceUtil._
+
+@main(Messages("Zoop: Cart"),"login") {
+
+
+<div id='cartDetail-prefetched' class='information-div'>@Html(cartDetail)</div>
+
+<script>
+         function cartDetailCtrl($scope,$http) {
+            $scope.cartDetails = $.parseJSON($('#cartDetail-prefetched').text())
+         }
+</script>
+
+<!-- BAR -->
+                <div class="bar-wrap">
+                    <div class="container">
+                        <div class="row">
+                            <div class="span12">
+                                <div class="title-bar">
+                                    <h1>SHOPPING CART</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- BAR -->
+
+                <!-- PRODUCT-OFFER -->
+                <div class="product_wrap" ng-controller = "cartDetailCtrl">
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="span12">
+                                <div class="shopping-cart">
+
+                                    <ul class="title clearfix">
+                                        <li>Image</li>
+                                        <li class="second">
+                                        Product Name</li>
+                                        <li>Start Date</li>
+                                        <li>End Date</li>
+                                        <li>Quantity</li>
+                                        <li>Unite Price</li>
+                                        <li class="todo">Sub Total</li>
+                                        <!--<li class="last todo">Action</li>-->
+                                    </ul>
+
+                                    <div ng-repeat = "cartItem in cartDetails.items">
+
+                                        <ul class="clearfix">
+                                            <li>
+                                                <figure>
+                                                    <a href="/product?sku={{cartItem.sku}}">
+                                                    <img ng-src=@ResourceUrl()/{{cartItem.itemDetail.image}}  alt="">
+                                                    </a>
+                                                </figure>
+                                            </li>
+                                            <li class="second">
+                                                <h4 href="/product?sku={{cartItem.sku}}" ng-bind="cartItem.itemDetail.title"></h4>
+                                                <!--<p><span>Color:</span> Brown</p>-->
+                                                <!--<p><span>Size:</span> 12</p>-->
+                                            </li>
+                                            <li class="ng-cloak">{{cartItem.startDate | date:'yyyy-MM-dd'}}</li>
+                                            <li class="ng-cloak">{{cartItem.endDate | date:'yyyy-MM-dd'}}</li>
+                                            <li ng-bind="cartItem.qty">
+                                                0
+                                                <!--<input type="number" value="{{cartItem.qty}}">-->
+                                            </li>
+                                            <li>$<dummy ng-bind="cartItem.itemDetail.price.mrp">0.0</dummy></li>
+                                            <li class="todo">${{cartItem.itemDetail.price.mrp * cartItem.qty}}</li>
+                                            <!--<li class="last todo"><a href="#">X</a></li>-->
+                                        </ul>
+
+                                    </div>
+
+
+                                    <ul class="clearfix todo">
+                                        <li>
+                                            <figure><img src="http://placehold.it/131x86" alt=""></figure>
+                                        </li>
+                                        <li class="second">
+                                            <h4>Brown Wood Chair</h4>
+                                            <p><span>Color:</span> Brown</p>
+                                            <p><span>Size:</span> 12</p>
+                                        </li>
+                                        <li>
+                                            <input type="number" value="1">
+                                        </li>
+                                        <li>$255.00</li>
+                                        <li>$255.00</li>
+                                        <li class="last"><a href="#">X</a></li>
+                                    </ul>
+
+
+                                    <a href="/" class="red-button">Continue Shopping</a>
+                                    <a href="/api/carts/deleteall" class="red-button black">Delete Shopping Cart</a>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row cart-calculator clearfix">
+
+                            <div class="span4" style="visibility: hidden">
+                                <h6>Estimate Shipping & Taxes</h6>
+                                <div class="estimate clearfix">
+                                    <form>
+                                        <select>
+                                            <option>-- Select Your Country --</option>
+                                            <option>Pakistan</option>
+                                        </select>
+
+                                        <select>
+                                            <option>-- Select Your Region --</option>
+                                        </select>
+
+                                        <input type="text" placeholder="Your Postcode">
+                                        <input type="submit"  class="red-button" value="Get Quotes" >
+                                    </form>
+                                </div>
+                            </div>
+
+                            <div class="span4" style="visibility: hidden">
+                                <h6>Discount Codes</h6>
+                                <div class="estimate clearfix">
+                                    <form>
+                                        <input type="text" placeholder="Your Postcode">
+                                        <input type="submit"  class="red-button" value="Get Quotes" >
+                                    </form>
+                                </div>
+                            </div>
+
+                            <div class="span4 total clearfix" ng-controller="cartCountCtrl">
+                                <ul class="black">
+                                    <li>Subtotal:</li>
+                                    <li>Grand total:</li>
+                                </ul>
+                                <ul class="gray">
+                                    <li class="ng-cloak">${{cartCounts.amount}}</li>
+                                    <li class="ng-cloak">${{cartCounts.amount}}.00</li>
+                                </ul>
+                                <a href="/checkout" class="red-button">Proceed to Checkout</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- PRODUCT-OFFER -->
+}

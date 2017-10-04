@@ -1,0 +1,328 @@
+@(nav: String = "")
+<!--, cartCount: String =""-->
+@import helper._
+<!-- HEADER -->
+
+<script>
+         function cartCountCtrl($scope,$http) {
+            var url = "/api/carts/count";
+            $http.get(url).success( function(response) {
+               $scope.cartCounts = response;
+               //alert($scope.cartCounts.qty);
+            });
+          }
+
+          function categoryCtrl($scope,$http) {
+            var url = "/api/category/tree";
+            $http.get(url).success( function(response) {
+               $scope.categories = response;
+              // alert($scope.categories.name);
+            });
+         }
+
+</script>
+
+
+<div class="header-bar">
+  <div class="container">
+    <div class="row">
+
+      <!--for now commenting as only dollar (with rupees conversion option internally will be given-->
+      <!--<div class="pric-icon span2">-->
+        <!--<a href="#" class="active">&#x20ac;</a>-->
+        <!--<a href="#">&#xa3;</a>-->
+        <!--<a href="#">&#36;</a>-->
+      <!--</div>-->
+
+      <!-- span10   class should be added below in case of languages addition -->
+      <div class="right">
+
+        <div class="social-strip">
+          <ul>
+            <li><a href="#" class="account">My Account</a></li>
+            <li><a href="#" class="wish">Wish List</a></li>
+            <li><a href='@controllers.shop.user.routes.ProductBuy.checkout()' class="check">Checkout</a></li>
+          </ul>
+        </div>
+
+
+        <!--for now commenting as we will  support only english -->
+        <!--<div class="languages">-->
+          <!--<a href="#" class="english active"><img src='@routes.Assets.at("images/english.png")' alt=""></a>-->
+          <!--<a href="#" class="german"><img src='@routes.Assets.at("images/german.png")' alt=""></a>-->
+          <!--<a href="#" class="japan"><img src='@routes.Assets.at("images/japan.png")' alt=""></a>-->
+          <!--<a href="#" class="turkish"><img src='@routes.Assets.at("images/turkish.png")' alt=""></a>-->
+        <!--</div>-->
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="header-top">
+  <div class="container">
+    <div class="row">
+
+      <div class="span5">
+        <div class="logo">
+          <a href='@controllers.shop.user.routes.Shopping.index()'>
+            <!--<img src='@routes.Assets.at("images/logo.png")' alt="">-->
+            <h1>ZOOP</h1>
+          </a>
+
+        </div>
+      </div>
+
+
+      <!--Search -->
+      <div class="span5">
+        @form(action = controllers.shop.user.routes.Shopping.search() ) {
+           <input type="text" name="key" placeholder="Type and hit enter">
+          <input type="submit" value="">
+        }
+      </div>
+
+      <div class="span2" ng-controller="cartCountCtrl">
+        <div class="cart">
+          <ul>
+            <li class="first"><a href='@controllers.shop.user.routes.ProductBuy.cart()'></a></li>
+            <li>
+              <dummy ng-bind="cartCounts.qty"></dummy>
+              item(s) - $ <dummy ng-bind="cartCounts.amount"></dummy>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<header>
+  <div class="container">
+    <div class="row">
+      <div class="span12">
+        <nav class="desktop-nav">
+
+
+          <ul class="clearfix"  ng-controller = "categoryCtrl">
+            <div ng-repeat = "cat in categories">
+              <li>
+                <a href="/products?category={{cat.slug}}" ng-bind="cat.name"></a>
+              </li>
+            </div>
+            <li>
+              <a href="/products?category=misc">Miscellaneous</a>
+            </li>
+          </ul>
+
+          <!--************************************************************-->
+
+          <ul class="clearfix todo">
+            <li>
+              <a href="#">BAGS</a>
+              <ul class="clearfix sub-menu">
+                <li class="clearfix">
+                  <div class="links">
+                    <h3>Furnitures</h3>
+                    <p>
+                      <a href="#">Chair Designs</a>
+                      <a href="#">Sofa Styles</a>
+                    </p>
+
+                    <p>
+                      <a href="#">Chair Designs</a>
+                      <a href="#">Sofa Styles</a>
+                    </p>
+
+                  </div>
+                  <figure>
+                    <a href="#"><img src='@routes.Assets.at("images/product7.png")' alt=""/></a>
+                  </figure>
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <a href="#">Jackets</a>
+              <ul class="clearfix sub-menu menu-two">
+                <li class="clearfix">
+                  <div class="links">
+                    <h3>Furnitures</h3>
+                    <p>
+                      <a href="#">Chair Designs</a>
+                      <a href="#">Sofa Styles</a>
+                    </p>
+
+                    <p>
+                      <a href="#">Accesories</a>
+                      <a href="#">Furniture Parts</a>
+                    </p>
+
+                  </div>
+                  <figure>
+                    <a href="#"><img src='@routes.Assets.at("images/product7.png")' alt=""/></a>
+                  </figure>
+                </li>
+              </ul>
+
+            </li>
+            <li>
+              <a href="#">ACCESORIES </a>
+              <ul class="clearfix sub-menu menu-three">
+                <li class="clearfix">
+
+                  <figure>
+                    <a href="#"><img src='@routes.Assets.at("images/menu-img.png")' alt=""/></a>
+                  </figure>
+                  <div class="links">
+                    <h3>Furnitures</h3>
+                    <p>
+                      <a href="#">Table Designs</a>
+                      <a href="#">Another Category</a>
+                    </p>
+
+                    <p>
+                      <a href="#">Accesories</a>
+                      <a href="#">Furniture Parts</a>
+                    </p>
+
+                    <p>
+                      <a href="#">Chair Designs</a>
+                      <a href="#">Sofa Styles</a>
+                    </p>
+
+                    <p>
+                      <a href="#">Chair Designs</a>
+                      <a href="#">Sofa Styles</a>
+                    </p>
+
+                  </div>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="#">CATEGORIES</a>
+              <ul class="clearfix sub-menu menu-four">
+                <li class="clearfix">
+
+                  <div class="our-product">
+                    <h3>Chairs</h3>
+
+                    <div class="clearfix">
+                      <a href="#"><img src='@routes.Assets.at("images/shopping-img.png")' alt=""/></a>
+                      <h4>Brown Wood Chair</h4>
+                      <span>$244.00</span>
+                    </div>
+
+                    <div class="clearfix">
+                      <a href="#"><img src='@routes.Assets.at("images/shopping-img3.png")' alt=""/></a>
+                      <h4>Brown Wood Chair</h4>
+                      <span>$244.00</span>
+                    </div>
+
+                    <div class="clearfix">
+                      <a href="#"><img src='@routes.Assets.at("images/shopping-img5.png")' alt=""/></a>
+                      <h4>Brown Wood Chair</h4>
+                      <span>$244.00</span>
+                    </div>
+
+                  </div>
+
+                  <div class="our-product">
+                    <h3>Bedrooms</h3>
+
+                    <div class="clearfix">
+                      <a href="#"><img src='@routes.Assets.at("images/shopping-img.png")' alt=""/></a>
+                      <h4>Brown Wood Chair</h4>
+                      <span>$244.00</span>
+                    </div>
+
+                    <div class="clearfix">
+                      <a href="#"><img src='@routes.Assets.at("images/shopping-img3.png")' alt=""/></a>
+                      <h4>Brown Wood Chair</h4>
+                      <span>$244.00</span>
+                    </div>
+
+                    <div class="clearfix">
+                      <a href="#"><img src='@routes.Assets.at("images/shopping-img5.png")' alt=""/></a>
+                      <h4>Brown Wood Chair</h4>
+                      <span>$244.00</span>
+                    </div>
+
+                  </div>
+
+                  <div class="our-product">
+                    <h3>SofaS</h3>
+
+                    <div class="clearfix">
+                      <a href="#"><img src='@routes.Assets.at("images/shopping-img.png")' alt=""/></a>
+                      <h4>Brown Wood Chair</h4>
+                      <span>$244.00</span>
+                    </div>
+
+                    <div class="clearfix">
+                      <a href="#"><img src='@routes.Assets.at("images/shopping-img3.png")' alt=""/></a>
+                      <h4>Brown Wood Chair</h4>
+                      <span>$244.00</span>
+                    </div>
+
+                    <div class="clearfix">
+                      <a href="#"><img src='@routes.Assets.at("images/shopping-img5.png")' alt=""/></a>
+                      <h4>Brown Wood Chair</h4>
+                      <span>$244.00</span>
+                    </div>
+
+                  </div>
+
+                </li>
+              </ul>
+            </li>
+            <li><a href='@controllers.shop.user.routes.Shopping.blog()'>Blog</a></li>
+
+            <li>
+              <a href="#">Pages</a>
+              <ul class="clearfix">
+                <li><a href='@controllers.shop.user.routes.Shopping.index()'>Home</a></li>
+                <li><a href='@controllers.shop.user.routes.Shopping.products("bag")'>Product Grid</a></li>
+                <li><a href='@controllers.shop.user.routes.Shopping.products("bag",true)'>Product List</a></li>
+                <li><a href='@controllers.shop.user.routes.ProductBuy.cart()'>Shopping cart</a></li>
+                <li><a href='@controllers.shop.user.routes.ProductBuy.checkout()'>Checkout</a></li>
+                <li><a href='@controllers.shop.user.routes.Shopping.product("id")'>Single Product</a></li>
+                <li><a href='@controllers.shop.user.routes.Shopping.blog()'>Blog</a></li>
+
+                <li><a href="single.html">Single</a></li>
+              </ul>
+            </li>
+
+            <li><a href='@controllers.shop.admin.routes.ShopAdmin.addProduct()'>Add Product</a></li>
+
+          </ul>
+
+          <!--*********************************************************************-->
+
+
+        </nav>
+
+        <select class="todo">
+          <option>BAGS</option>
+          <option>Jackets</option>
+          <option>ACCESORIES </option>
+          <option>CATEGORIES</option>
+          <option>Manufacters</option>
+          <option>Sale </option>
+          <option>Blog</option>
+          <option>Dresses</option>
+          <option>Jewelry</option>
+          <option>ShOES</option>
+          <option>Shirts</option>
+        </select>
+
+      </div>
+    </div>
+  </div>
+</header>
+<!-- HEADER -->
+
+

@@ -1,0 +1,47 @@
+This is your new Play application
+=================================
+
+This file will be packaged with your application, when using `activator dist`.
+
+
+=================================
+Morphia:
+==========
+https://github.com/mongodb/morphia/wiki/Updating
+
+query = ds.createQuery(UserData.class).field("uUid").equal("1234");
+ops = ds.createUpdateOperations(UserData.class).set("status", "active");
+ds.update(query, ops);
+
+
+Ecommerce mongodb:
+====================
+
+
+
+
+=================================
+Angular:
+==========
+
+
+
+=================================
+Bootstrap:
+==========
+
+
+
+
+=================================
+Play:
+==========
+
+
+
+
+
+Bug:
+
+Angular js late load - Flicker bug:
+http://weblog.west-wind.com/posts/2014/Jun/02/AngularJs-ngcloak-Problems-on-large-Pages

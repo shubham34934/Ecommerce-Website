@@ -1,0 +1,344 @@
+@(checkoutForm: Form[_], carts: String)
+
+@import helper._
+
+@main(Messages("Zoop: Checkout"),"login") {
+<div id='carts-prefetched' class='information-div'>@Html(carts)</div>
+<script>
+         function checkoutCtrl($scope,$http) {
+            $scope.cartDetails = $.parseJSON($('#carts-prefetched').text());
+            $scope.Math = window.Math;
+            $scope.userIdFromCookie = getUserIdFromCookie();
+            $scope.formData = {};
+            $scope.formData.deliveryAddress = {};
+            $scope.formData.deliveryAddress.city = "Bangalore";
+            $scope.formData.deliveryAddress.state = "Karnataka";
+            $scope.formData.deliveryAddress.country = "India";
+
+
+            $scope.checkoutCart = function() {
+
+
+
+                    var formDataObj = {
+                                    "userId" : $scope.userIdFromCookie,
+                                    "email" : $scope.formData.email,
+                                    "phone" : $scope.formData.phone,
+                                    "deliveryAddress.firstName" : $scope.formData.deliveryAddress.firstName,
+                                    "deliveryAddress.lastName" : $scope.formData.deliveryAddress.lastName,
+                                    "deliveryAddress.company" : $scope.formData.deliveryAddress.company,
+                                    "deliveryAddress.email" : $scope.formData.deliveryAddress.email,
+                                    "deliveryAddress.address" : $scope.formData.deliveryAddress.address,
+                                    "deliveryAddress.city" : $scope.formData.deliveryAddress.city,
+                                    "deliveryAddress.state" : $scope.formData.deliveryAddress.state,
+                                    "deliveryAddress.zipCode" : $scope.formData.deliveryAddress.zipCode,
+                                    "deliveryAddress.country" : $scope.formData.deliveryAddress.country,
+                                    "deliveryAddress.phone" : $scope.formData.deliveryAddress.phone,
+                                    "orderComment" : $scope.formData.orderComment
+                                    <!--"items" : $scope.carts-->
+                            };
+
+                    $http({
+                        method: 'POST',
+                        url: "/api/checkout",
+                        data: $.param(formDataObj),
+                        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                    }).success(function(data) {
+                        console.log(data);
+                        alert("Order has been successfully processed.");
+                        window.location = "/";
+                    }).error(function(data) {
+                        $scope.message = "Error occurred: "+data;
+                       // alert("error"+data);
+                    });
+
+
+            };
+         }
+</script>
+
+<!-- BAR -->
+                <div class="bar-wrap">
+                    <div class="container">
+                        <div class="row">
+                            <div class="span12">
+                                <div class="title-bar">
+                                    <h1>CHECKOUT</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- BAR -->
+
+                <!-- PRODUCT-OFFER -->
+                <div class="product_wrap" ng-controller = "checkoutCtrl">
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="span12">
+
+                                <div id="check-accordion">
+
+
+                                <!--@form( action = controllers.shop.user.routes.ShopApi.checkoutCart() ) {-->
+
+                                    <h5><small>STEP 1</small><a href="#">LOGIN INFORMATION</a></h5>
+
+                                    <div class="clearfix">
+
+
+                                        <div class="span6 cheakout clearfix">
+                                            <h6>New Customer ? <span>Choose your Checkout options:</span></h6>
+                                            <form>
+                                                <input type="radio" checked="checked"> <label>Check out as a Guest</label> <br/>
+                                                <!--<input type="radio"> <label>Register Account</label>-->
+
+                                                <p>By creating an account with our store, you will be able to move through the checkout process faster, store multiple shipping addresses, view and track your orders in your account and more.</p>
+                                                <input type="submit" value="continue">
+                                            </form>
+                                        </div>
+
+                                        <!--<div class="span6 cheakout clearfix register">-->
+                                            <!--<h6>Registered Customer ? <span>Please fill the form below</span></h6>-->
+                                            <!--<form class="clearfix">-->
+                                                <!--<label>Your e-mail address</label>-->
+                                                <!--<input type="text" placeholder="yourmail_-_domain.com"><br/>-->
+                                                <!--<label>Your Password</label>-->
+                                                <!--<input type="text" placeholder="enter your password"><br/>-->
+                                                <!--<a href="#" >Forgot your password ?</a>-->
+                                                <!--<input type="submit" value="Login">-->
+                                            <!--</form>-->
+                                        <!--</div>-->
+
+
+                                        <div class="span6 cheakout clearfix register">
+                                            <h6>Your Contact Detail : <span>Please fill the form below</span></h6>
+                                            <form class="clearfix" >
+                                                <label>E-mail address </label>
+                                                <input type="text" placeholder="yourmail_-_domain.com" ng-model="formData.email"><br/>
+                                                <label>Phone number </label>
+                                                <input type="number" placeholder="enter your phone number" ng-model="formData.phone"><br/>
+                                            </form>
+                                        </div>
+
+
+
+                                    </div>
+
+
+
+
+
+                                    <h5><small>STEP 2</small><a href="#">DELIVERY ADDRESS</a></h5>
+
+                                    <div class=" clearfix">
+                                        <form class="billing-form clearfix">
+                                            <fieldset>
+                                                <label>First name</label>
+                                                <input type="text" value="manjeet" ng-model="formData.deliveryAddress.firstName"/>
+                                                <label>Company</label>
+                                                <input type="text" ng-model="formData.deliveryAddress.company"/>
+                                            </fieldset>
+
+                                            <fieldset class="last">
+                                                <label>Last Name</label>
+                                                <input type="text" ng-model="formData.deliveryAddress.lastName"/>
+                                                <label>E-mail Address</label>
+                                                <input type="text" ng-model="formData.deliveryAddress.email"/>
+                                            </fieldset>
+
+                                            <label>Address</label>
+                                            <input type="text"  ng-model="formData.deliveryAddress.address"/>
+                                            <!--<input type="text"/>-->
+
+                                            <fieldset>
+
+                                                <label>City</label>
+                                                <!--<input type="text" ng-model="formData.deliveryAddress.city"/>-->
+                                                <select ng-model="formData.deliveryAddress.city">
+                                                    <option>Bangalore</option>
+                                                </select>
+
+                                                <label>Zip/Postal Code</label>
+                                                <input type="text" ng-model="formData.deliveryAddress.zipCode"/>
+                                                <label>Telephone</label>
+                                                <input type="text" ng-model="formData.deliveryAddress.phone"/>
+                                            </fieldset>
+
+                                            <fieldset class="last">
+                                                <label>State/Province</label>
+                                                <select ng-model="formData.deliveryAddress.state">
+                                                    <option>Karnataka</option>
+                                                </select>
+
+                                                <label>Country</label>
+                                                <select ng-model="formData.deliveryAddress.country"/>
+                                                    <option>India</option>
+                                                </select>
+                                                <label class="skeletonElement">Fax</label>
+                                                <input class="skeletonElement" type="text"/>
+                                            </fieldset>
+
+                                            <input checked="checked" onclick="return false;" type="checkbox"/>
+                                            <p>Delivery and billing addresses are the same.</p>
+
+                                            <input type="submit" value="continue" class="red-button">
+
+                                        </form>
+                                    </div>
+
+
+                                    <!--<div style="display:none">-->
+                                    <!--<h5><small>STEP 3</small><a href="#">Delivery Details</a></h5>-->
+
+                                    <!--<div class="clearfix">-->
+                                        <!--<form class="billing-form clearfix">-->
+                                            <!--<fieldset>-->
+                                                <!--<label>First name</label>-->
+                                                <!--<input type="text"/>-->
+                                                <!--<label>Company</label>-->
+                                                <!--<input type="text"/>-->
+                                            <!--</fieldset>-->
+
+                                            <!--<fieldset class="last">-->
+                                                <!--<label>Last Name</label>-->
+                                                <!--<input type="text"/>-->
+                                                <!--<label>E-mail Address</label>-->
+                                                <!--<input type="text"/>-->
+                                            <!--</fieldset>-->
+
+                                            <!--<label>Address</label>-->
+                                            <!--<input type="text"/>-->
+                                            <!--<input type="text"/>-->
+
+                                            <!--<fieldset>-->
+                                                <!--<label>City</label>-->
+                                                <!--<input type="text"/>-->
+                                                <!--<label>Zip/Postal Code</label>-->
+                                                <!--<input type="text"/>-->
+                                                <!--<label>Telephone</label>-->
+                                                <!--<input type="text"/>-->
+                                            <!--</fieldset>-->
+
+                                            <!--<fieldset class="last">-->
+                                                <!--<label>State/Province</label>-->
+                                                <!--<select>-->
+                                                    <!--<option>State</option>-->
+                                                <!--</select>-->
+                                                <!--<label>Country</label>-->
+                                                <!--<select>-->
+                                                    <!--<option>Pakistan</option>-->
+                                                <!--</select>-->
+                                                <!--<label>Fax</label>-->
+                                                <!--<input type="text"/>-->
+                                            <!--</fieldset>-->
+
+                                            <!--<input type="checkbox"/> <p>My delivery and billing addresses are the same.</p>-->
+
+                                            <!--<input type="submit" value="continue" class="red-button">-->
+
+                                        <!--</form>-->
+
+                                    <!--</div>-->
+                                    <!--</div>-->
+
+
+
+                                    <h5><small>STEP 3</small><a href="#">ORDER SUMMARY</a></h5>
+
+                                    <div class="clearfix">
+                                        <div class="billing">
+
+                                            <ul class=" itemrow title ">
+                                                <li>Product Name</li>
+                                                <li>Duration</li>
+                                                <li>Quantity</li>
+                                                <li>Price</li>
+                                                <li class="last">Total</li>
+                                            </ul>
+
+                                            <div ng-repeat = "cartItem in cartDetails.items">
+
+                                                <ul class="itemrow">
+                                                    <li>{{cartItem.itemDetail.title}}</li>
+                                                    <li>{{cartItem.startDate | date:'yyyy-MM-dd'}} to {{cartItem.endDate | date:'yyyy-MM-dd'}} </li>
+                                                    <li>{{cartItem.qty}}</li>
+                                                    <li>${{cartItem.itemDetail.price.mrp}}</li>
+                                                    <li class="last">${{cartItem.itemDetail.price.mrp * cartItem.qty}}</li>
+                                                </ul>
+
+                                            </div>
+
+                                            <div class="totle" ng-controller="cartCountCtrl">
+                                                <ul>
+                                                    <li>Sub-Total: <span>${{cartCounts.amount}}</span></li>
+                                                    <li>Flat Shipping Rate: <span>$0.00</span></li>
+                                                    <!--<li>Eco Tax (-2.00): <span>$27.00</span></li>-->
+                                                    <li>VAT (0.0%):	 <span>$0.00</span></li>
+                                                    <li>Total: <span>${{cartCounts.amount}}</span></li>
+                                                </ul>
+                                                <a class="red-button" href="#">Continue</a>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+
+                                    <h5><small>STEP 4</small><a href="#">Payment Methods</a></h5>
+
+                                    <div class="clearfix">
+                                        <div class=" payment">
+                                            <p>Please select the preferred payment method to use on this order.</p>
+
+                                            <form>
+                                                <div class="radio-btn">
+                                                    <input type="radio" checked="checked"/>
+                                                    <label>Cash On Delivery</label>
+                                                </div>
+                                                <span>$255.99</span>
+                                                <label>Add Comments About Your Order </label>
+                                                <textarea ng-model="formData.orderComment"></textarea>
+                                                <input type="submit" value="continue" class="red-button" >
+                                            </form>
+                                        </div>
+                                    </div>
+
+
+                                    <!--<div style="display:none">-->
+                                    <!--<h5><small>STEP 5</small><a href="#">Shipping Method</a></h5>-->
+                                    <!--<div class="clearfix">-->
+                                        <!--<div class=" payment">-->
+                                            <!--<p>Please select the preferred shipping method to use on this order.</p>-->
+
+                                            <!--<form>-->
+                                                <!--<label>Flat Rate</label>-->
+                                                <!--<div class="radio-btn">-->
+                                                    <!--<input type="radio"/>-->
+                                                    <!--<label>Flat Shipping Rate</label>-->
+                                                    <!--<span>$255.99</span>-->
+                                                <!--</div>-->
+                                                <!--<label>Add Comments About Your Order  </label>-->
+                                                <!--<textarea></textarea>-->
+                                                <!--<input type="submit" value="continue" class="red-button">-->
+                                            <!--</form>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <!--</div>-->
+
+                                <!--}-->
+                                </div>
+                                <p>
+                                    <span class="alert alert-info" ng-show="message">{{ message }}</span>
+                                </p>
+                                <br/>
+                                <button class="red-button" ng-click="checkoutCart()">Place Order</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- PRODUCT-OFFER -->
+}

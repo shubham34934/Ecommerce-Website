@@ -1,0 +1,51 @@
+@(f: Form[_])
+
+@import helper._
+
+<link href='@routes.Assets.at("stylesheets/bootstrap-tagsinput.css")' rel="stylesheet">
+<link rel="stylesheet" href="@routes.Assets.at("stylesheets/jasny-bootstrap.css")">
+
+@main(Messages("playauthenticate.login.title"),"login") {
+
+<script>
+    function addProductCtrl($scope,$http) {
+
+            $scope.categoriesleaf = [
+              {slug: 'misc', name: 'Misc'},
+              {slug: 'cycle', name: 'Cycle'},
+              {slug: 'bike', name: 'Bike'},
+              {slug: 'car', name: 'Car'}
+            ];
+            $scope.catSelected = {slug: 'misc', name: 'Misc'};
+
+//TODO : ON AJAX COMPLETE IT SHOULD LOAD THE SELECTION MENU
+        var url = "/api/category/leaf";
+        $http.get(url).success( function(response) {
+           // $scope.categoriesleaf = response;
+            alert($scope.categoriesleaf.tostring());
+        });
+    }
+</script>
+
+  <div class="row">
+    <div class="span6">
+      <h1>Add Movie Question!</h1>
+    </div>
+  </div>
+
+<div  ng-controller = "addProductCtrl">
+
+    	@form(action = controllers.shop.admin.routes.ShopAdmin.doAddProduct(), 'enctype -> "multipart/form-data") {
+          @_addShopItemFormPartial(f)
+          <input type="submit" value="Add" class="btn btn-primary"><br/>
+          <br/>
+    	}
+
+</div>
+
+
+}
+
+<script src='@routes.Assets.at("javascripts/bootstrap-tagsinput.js")'></script>
+<script src='@routes.Assets.at("javascripts/bootstrap-tagsinput-angular.js")'></script>
+<script src='@routes.Assets.at("javascripts/jasny-bootstrap.js")'></script>
